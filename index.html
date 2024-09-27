@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Natan AI - Chat with AI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #4CAF50;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #666;
+    }
+
+    /* Chatbox Container */
+    .chat-container {
+      width: 400px;
+      max-width: 90%;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Chat Messages */
+    .chat-box {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .message.user {
+      text-align: right;
+      color: #4CAF50;
+    }
+
+    .message.ai {
+      text-align: left;
+      color: #333;
+    }
+
+    /* Chat Form */
+    .chat-form {
+      display: flex;
+    }
+
+    .chat-form input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .chat-form button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .chat-form button:hover {
+      background-color: #45a049;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 20px;
+      font-size: 1em;
+      color: #777;
+    }
+
+    footer a {
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Natan AI</h1>
+    <p>Chat with Natan AI - Your personal assistant!</p>
+  </header>
+
+  <!-- Chat Container -->
+  <div class="chat-container">
+    <!-- Chat Box -->
+    <div class="chat-box" id="chat-box">
+      <div class="message ai">Hello! I am Natan AI. How can I assist you today?</div>
+    </div>
+
+    <!-- Chat Form -->
+    <form class="chat-form" id="chat-form">
+      <input type="text" id="user-input" placeholder="Type your message..." required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Natan AI. All Rights Reserved. <a href="#">Contact Us</a></p>
+  </footer>
+
+  <script>
+    const chatForm = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+
+    // Array of possible AI responses
+    const aiResponses = [
+      "Natan AI: I'm here to help! What do you need?",
+      "Natan AI: That's interesting! Tell me more.",
+      "Natan AI: I'm thinking... give me a moment.",
+      "Natan AI: How can I assist you with that?",
+      "Natan AI: I can answer questions about many things, just ask!",
+      "Natan AI: Do you have any specific requests today?",
+      "Natan AI: That sounds like a cool idea! How can I help with it?",
+      "Natan AI: Great! What would you like to explore next?",
+      "Natan AI: Can you clarify that a little? I'd love to assist.",
+      "Natan AI: I'm processing your request... Let me see."
+    ];
+
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Get the user's input message
+      const userMessage = userInput.value;
+      if (!userMessage) return;
+
+      // Display user's message in chat
+      const userMessageElement = document.createElement('div');
+      userMessageElement.classList.add('message', 'user');
+      userMessageElement.textContent = userMessage;
+      chatBox.appendChild(userMessageElement);
+
+      // Clear input field
+      userInput.value = '';
+
+      // Simulate AI thinking response
+      setTimeout(() => {
+        const aiThinkingMessage = document.createElement('div');
+        aiThinkingMessage.classList.add('message', 'ai');
+        aiThinkingMessage.textContent = "Natan AI: I'm thinking...";
+        chatBox.appendChild(aiThinkingMessage);
+
+        // Auto-scroll chat box
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        // Simulate delay before AI gives a real response
+        setTimeout(() => {
+          // Remove the thinking message
+          aiThinkingMessage.remove();
+
+          // Select a random response from the array
+          const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+
+          // Display AI's response
+          const aiMessageElement = document.createElement('div');
+          aiMessageElement.classList.add('message', 'ai');
+          aiMessageElement.textContent = randomResponse;
+          chatBox.appendChild(aiMessageElement);
+
+          // Auto-scroll chat box
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }, 1000);
+
+      }, 500);
+    });
+  </script>
+</body>
+</html>
